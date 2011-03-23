@@ -14,13 +14,15 @@
           upgrade   = $('<div />').addClass(o.cssclass).css(o.css.upgrade).appendTo(container),
           title     = $('<h2 />').html(o.title).css(o.css.title).appendTo(upgrade),
           message   = $('<p />').html(o.message).appendTo(upgrade),
-          download  = $('<h3 />').html(o.download).appendTo(upgrade),
+          download  = $('<h4 />').html(o.download).appendTo(upgrade),
           browsers  = $('<ul class="browsers" />').appendTo(upgrade);
-
+      
       // Create browser links.
+      var c = 0;
       $.each(o.browsers, function(i, b){
-        var item = $('<li />').addClass('browser-' + i).appendTo(browsers),
+        var item = $('<li />').addClass('browser-' + i).css(o.css.icon).css('background-position', '-' + ( c * 72 ) + 'px 0').appendTo(browsers),
             link = $('<a />').attr('href', b.link).text(b.name).appendTo(item);
+        c++;
       });
     }
   };
@@ -31,9 +33,9 @@
     fail: ( $.browser == 'msie' && $.browser.version == 6 ),
     cssclass: 'jquery-upgrade',
     appendTo: 'body',
-    title: 'Did you know that your Internet Explorer is out of date?',
-    message: 'To get the best possible experience using our website we recommend that you upgrade to a newer version or other web browser. A list of the most popular web browsers can be found below.',
-    download: 'Just click on the icons to get the download page',
+    title: 'This site uses features only available in newer browsers.',
+    message: 'To get the best possible experience using our website, we recommend that you use a modern, standards-compliant web browser. A list of the most popular web browsers can be found below.',
+    download: 'Just click on the links below to visit the download page for the browser of your choice.',
     browsers: {
       explorer: { name: 'Internet Explorer 9+', link: 'http://microsoft.com/windows/Internet-explorer/default.aspx' },
       firefox: { name: 'FireFox 4+', link: 'http://mozilla.com/firefox' },
@@ -41,10 +43,11 @@
       opera: { name: 'Opera 11+', link: 'http://opera.com/download' },
       chrome: { name: 'Chrome 10+', link: 'http://google.com/chrome' }
     },
+    path: 'jquery.upgrade/icons',
     css: {
       upgrade: {
         position: 'absolute',
-        top: ( ( document.documentElement.clientHeight - 200 ) / 2 ) + 'px',
+        top: '150px',
         left: '50%',
         width: '500px',
         padding: '20px',
@@ -56,6 +59,16 @@
       },
       title: {
         marginTop: '0px'
+      },
+      icon: {
+        display: 'block',
+        float: 'left',
+        width: '64px',
+        marginRight: '10px',
+        paddingTop: '64px',
+        listStyle: 'none',
+        backgroundImage: 'url(sites/default/libraries/jquery.upgrade/icons/browser_logos-64.png)',
+        backgroundRepeat: 'no-repeat'
       }
     }
   };
